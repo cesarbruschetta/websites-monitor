@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Script de deploy para o google app engine 
+
+/home/cesaraugusto/bin/google_appengine/appcfg.py update ./

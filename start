@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Script de start do servidor de desenvolvimento para o google app engine
+
+/home/cesaraugusto/bin/google_appengine/dev_appserver.py --blobstore_path=./ --datastore_path=./dev_appserver.datastore ./
