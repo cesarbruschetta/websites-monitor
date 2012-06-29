@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Gerencias sites</title>
+    </head>
+    <body>
+    	<h1>Listagem dos sites</h1>
+    	<table>
+    		<tr>
+    			<td>Nome</td>
+    			<td>Link</td>
+    			<td>Texto</td>
+    			<td>Ativo?</td>
+    			<td>Gerenciar</td>
+    		</tr>
+    		{% for item in data %}
+    		<tr>
+    			<td>{{ item.name }}</td>
+    			<td>{{ item.link }}</td>
+    			<td>{{ item.textCheck }}</td>
+    			<td>{{ item.flagAtivo }}</td>
+    			<td><a href="/manage-sites?key={{ item.key() }}"
+    				   title="Editar" alt="Editar">Editar</a>
+    			</td>
+    		</tr>	
+    		{% endfor %}
+    	</table>
+    	
+        <p>{{ message|e }}</p>
+    </body>
+</html>
