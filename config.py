@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """App configuration."""
 #Constants
-website_title = 'Monitoramento de Sites'
+website_title = 'Monitoramento de Sites by AppEngine Google'
+send_mail = 'cesaraugusto@liberiun.com'
 
 config = {}
 
@@ -14,3 +15,8 @@ config['tipfy.ext.i18n'] = {
     'locale':   'pt_BR',
     'timezone': 'America/Sao_Paulo',
 }
+
+
+# Configiração do fuso horario global
+# America/Sao_Paulo
+config['time_zone'] = {'UTF': -3}

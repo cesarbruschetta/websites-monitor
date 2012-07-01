@@ -1,0 +1,42 @@
+{% from 'skins/resources.pt' import resources_macro with context %}
+{% from 'skins/menu.pt' import menu_macro with context%}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="keywords" content="monitoramento, app, egine, google, sites, web, http, cab informatica" />
+		<meta name="description" content="Site para monitorar web sites via http ou https utilizando o sistema app engine da google" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		{% block head -%}
+			{{ resources_macro() }}
+    		<title>
+    			{% block title %}{% endblock %} - {{ page_title }}
+			</title>
+    	{% endblock %}
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><a href="/">Check-up</a>&nbsp;&nbsp;&nbsp;<span>by AppEngine Google</span></h1>
+				</div>
+			</div>
+			<!-- end #header -->
+			<div id="menu">
+				{{ menu_macro() }}
+			</div>
+			<!-- end #menu -->
+			<div id="page">
+		      {% block content %}
+		      		Conteudo do site
+		      {% endblock %}
+			</div>
+			<div id="footer">
+				<p>R. Coimbra, 567 - Vila Pires | Santo André - SP | Telefones  (11) 4453-5295 |	Celular  (11) 9163-1305</p>
+			</div>
+			<!-- end #footer --> 
+		</div>
+		<p id="sobre">Copyright &copy; 2012 <a href="/static/sobre.html" target="popupwindow" 
+		   onclick='window.open("/static/sobre.html", "popupwindow", "scrollbars=yes,width=590,height=360");return true'>Cesar Augusto</a> 
+		   - Todos os direitos reservados</p>
+	</body>
+</html>

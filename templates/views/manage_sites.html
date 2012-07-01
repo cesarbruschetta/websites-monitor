@@ -1,81 +1,86 @@
+{% extends "skins/main_template.pt" %}
+{% block title %}Gerencias Sites{% endblock %}
+{% block content %}
 	<!-- Cadastre Form macro -->
-
 	<div id="login">
-		<form method="post" action="" enctype="multipart/form-data" class="tipfy-form">
-		    <table>
-		    	<tr>
-					<td colspan=2><p>Dados do Site</p></td>		    		
-		    	</tr>
-		    	<!-- name verification field -->
-		        <tr>
-		            <td class="label">
-		                <label for="name">{{form.name.label}}<abbr title="This field is required.">*</abbr></label>
-		            </td>
-		            <td class="field">
-						{{ form.name(style="width: 200px;")  }}
-		                <ul class="errors">
-		                    {% if form.name.errors %}
-		        				<ul class="errors">{% for error in form.name.errors %}<li>{{ error }}</li>{% endfor %}
-		    				{% endif %}
-		                </ul>
-		            </td>
-		        </tr>
-				<!-- Link verification field -->
-				<tr>
-		            <td class="label">
-		                <label for="link">{{form.link.label}}<abbr title="This field is required.">*</abbr></label>
-		            </td>
-		            <td class="field">
-		            	<!-- Inserting the field input-->
-						{{ form.link(style="width: 200px;") }}
-		                <ul class="errors">
-		                    {% if form.link.errors %}
-		        				<ul class="errors">{% for error in form.link.errors %}<li>{{ error }}</li>{% endfor %}
-		    				{% endif %}
-		                </ul>
-		            </td>
-		        </tr>
-				<!-- textCheck Field -->
-				<tr>
-		            <td class="label">
-		                <label for="textCheck">{{form.textCheck.label}}<abbr title="This field is required.">*</abbr></label>
-		            </td>
-		            <td class="field">
-		            	<!-- Inserting the field input-->
-		                {{ form.textCheck(style="width: 200px;") }}
-		                <ul class="errors">
-		                    {% if form.textCheck.errors %}
-		        				<ul class="errors">{% for error in form.textCheck.errors %}<li>{{ error }}</li>{% endfor %}
-		    				{% endif %}
-		                </ul>
-		            </td>
-		        </tr>
-				<!-- flagAtivo verification Field -->
-				<tr>
-		            <td class="label">
-		                <label for="flagAtivo">{{form.flagAtivo.label}}<abbr title="This field is required.">*</abbr></label>
-		            </td>
-		            <td class="field">
-		            	<!-- Inserting the field input-->
-		                {{ form.flagAtivo(style="width: 200px;") }}
-		                <ul class="errors">
-		                    {% if form.flagAtivo.errors %}
-		        				<ul class="errors">{% for error in form.flagAtivo.errors %}<li>{{ error }}</li>{% endfor %}
-		    				{% endif %}
-		                </ul>
-		            </td>
-		        </tr>
-				<!-- Botton Field -->
-				<tr id="button-registre" class="display-none">
-					<td colspan=2>	
-						<fieldset class="submit"> 
-		        			<input type="submit" value="Salvar Dados" name="registre"> 
-		    			</fieldset>
-					</td>
-				</tr>
-				
-				
-				
-		    </table>
+		<h1> Adiconar ou Editar Sites</h1>
+		<p>Adicione ou edite os sites que serão monitorados altomaticamente</p>
+		<fieldset class="submit"> 
+			<legend>Dados do Site</legend>
+			<form method="post" action="" enctype="multipart/form-data" class="tipfy-form">
+			    <table>
+			    	<!-- name verification field -->
+			        <tr>
+			            <td class="label">
+			                <label for="name">{{form.name.label}}<abbr title="This field is required.">*</abbr></label>
+			            </td>
+			            <td class="field">
+							{{ form.name(style="width: 200px;")  }}
+			                <ul class="errors">
+			                    {% if form.name.errors %}
+			        				<ul class="errors">{% for error in form.name.errors %}<li>{{ error }}</li>{% endfor %}
+			    				{% endif %}
+			                </ul>
+			            </td>
+			        </tr>
+					<!-- Link verification field -->
+					<tr>
+			            <td class="label">
+			                <label for="link">{{form.link.label}}<abbr title="This field is required.">*</abbr></label>
+			            </td>
+			            <td class="field">
+			            	<!-- Inserting the field input-->
+							{{ form.link(style="width: 200px;") }}
+			                <ul class="errors">
+			                    {% if form.link.errors %}
+			        				<ul class="errors">{% for error in form.link.errors %}<li>{{ error }}</li>{% endfor %}
+			    				{% endif %}
+			                </ul>
+			            </td>
+			        </tr>
+					<!-- textCheck Field -->
+					<tr>
+			            <td class="label">
+			                <label for="textCheck">{{form.textCheck.label}}<abbr title="This field is required.">*</abbr></label>
+			            </td>
+			            <td class="field">
+			            	<!-- Inserting the field input-->
+			                {{ form.textCheck(style="width: 200px;") }}
+			                <ul class="errors">
+			                    {% if form.textCheck.errors %}
+			        				<ul class="errors">{% for error in form.textCheck.errors %}<li>{{ error }}</li>{% endfor %}
+			    				{% endif %}
+			                </ul>
+			            </td>
+			        </tr>
+					<!-- flagAtivo verification Field -->
+					<tr>
+			            <td class="label">
+			                <label for="flagAtivo">{{form.flagAtivo.label}}<abbr title="This field is required.">*</abbr></label>
+			            </td>
+			            <td class="field">
+			            	<!-- Inserting the field input-->
+			                {{ form.flagAtivo(style="width: 200px;") }}
+			                <ul class="errors">
+			                    {% if form.flagAtivo.errors %}
+			        				<ul class="errors">{% for error in form.flagAtivo.errors %}<li>{{ error }}</li>{% endfor %}
+			    				{% endif %}
+			                </ul>
+			            </td>
+			        </tr>
+					<!-- Botton Field -->
+					<tr id="button-registre" class="display-none">
+						<td align="left">	
+			        		<a href="/sites" alt="Cancelar" title="Cancelar">
+			        			<input type="button" value="Cancelar" name="cancel">
+			        		</a>	 
+						</td>
+						<td align="right">
+							<input type="submit" value="Salvar Dados" name="registre">
+						</td>
+					</tr>
+			    </table>
 			</form>
+		</fieldset>
 	</div>
+{% endblock %}

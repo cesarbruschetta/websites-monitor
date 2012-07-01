@@ -1,0 +1,11 @@
+{% macro menu_macro() -%}
+	<ul id="mainMenu">
+		<li><a href="/">Home</a></li>
+		<li><a href="/sites">Gerenciar Sites</a></li>
+		<li><a href="/history">Histórico / Graficos</a></li>
+		
+		<!--li><a href="/">About</a></li>
+		<li><a href="#">Links</a></li>
+		<li><a href="#">Contact</a></li-->
+	</ul>
+{%- endmacro %}

@@ -3,10 +3,14 @@
 from tipfy.routing import Rule
 
 rules = [
-    Rule('/', name='hello-world', handler='hello_world.handlers.HelloWorldHandler'),
+    Rule('/', name='hello-world', handler='views.home.handlers.HomePageHandler'),
     # Gerencias Sites
-    Rule('/sites', name='Gerenciar Sites', handler='views.handlers.SiteMonitorHandler'),
-    Rule('/manage-sites', name='Gerenciar Sites', handler='views.handlers.ManageSiteMonitorHandler'),
+    Rule('/sites', name='Gerenciar Sites', handler='views.manage.handlers.SiteMonitorHandler'),
+    Rule('/sites/manage-sites', name='Gerenciar Sites', handler='views.manage.handlers.ManageSiteMonitorHandler'),
     
+    # Historicos
+    Rule('/history', name='Historico / Graficos', handler='views.history.handlers.HistoryGraphicHandler'),
     
+    # Checagem pelo Cron
+    Rule('/checkup', name='Checagem dos sites', handler='views.check.handlers.CheckUPHandler'),
 ]

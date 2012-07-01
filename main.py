@@ -8,17 +8,22 @@ import sys
 # and optionally to lib/dist.zip, loaded using zipimport.
 lib_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'lib')
 if lib_path not in sys.path:
+    #sys.setdefaultencoding("utf-8")
     sys.path[0:0] = [
         lib_path,
         os.path.join(lib_path, 'dist'),
         os.path.join(lib_path, 'dist.zip'),
     ]
-
+    
 
 from tipfy.app import App
 from config import *
 from urls import rules
 from tipfy.handler import RequestHandler
+
+#Importing some utilities
+from utils import Resources 
+from config import website_title
 
 def enable_appstats(app):
     """Enables appstats middleware."""
@@ -62,8 +67,8 @@ class DefaultHandler(RequestHandler):
     def __init__(self, request, app=None):
         
         super(DefaultHandler, self).__init__(request)
-        #self.resources = Resources()
-        self.template_vars = {#'resources':self.resources,
+        self.resources = Resources()
+        self.template_vars = {'resources':self.resources,
                               'page_title':website_title,
                               }
         self.context = self.template_vars

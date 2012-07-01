@@ -26,10 +26,11 @@ class Log(db.Model):
     """Table of the database used to save the data 
         of log of the sites monitoring """
   
+    site_monitor = db.ReferenceProperty(SiteMonitor, collection_name = 'site_log')
     date_creation = db.DateTimeProperty(auto_now_add=True)
     status = db.BooleanProperty()
     time_access = db.IntegerProperty()
-    speed_access = db.IntegerProperty
+    speed_access = db.IntegerProperty()
     
     
     
