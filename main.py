@@ -20,6 +20,10 @@ from tipfy.app import App
 from config import *
 from urls import rules
 from tipfy.handler import RequestHandler
+from tipfyext.jinja2 import Jinja2Mixin, cached_property
+
+from tipfy.auth import UserRequiredIfAuthenticatedMiddleware
+from tipfy.sessions import SessionMiddleware
 
 #Importing some utilities
 from utils import Resources 
@@ -56,13 +60,14 @@ enable_appstats(app)
 enable_jinja2_debugging()
 
 
-class DefaultHandler(RequestHandler):
+class DefaultHandler(RequestHandler, Jinja2Mixin):
     """
     Default class that provides resources and user information handling.
     """
     resources = None
     user_info = None
     template_vars = {}
+    middleware = [SessionMiddleware(), UserRequiredIfAuthenticatedMiddleware()]
     
     def __init__(self, request, app=None):
         
@@ -71,8 +76,44 @@ class DefaultHandler(RequestHandler):
         self.template_vars = {'resources':self.resources,
                               'page_title':website_title,
                               }
-        self.context = self.template_vars
+        
+        auth_session = None
+        if self.auth.session:
+            auth_session = self.auth.session
 
+        self.template_vars.update({ 'auth_session': auth_session,
+                                    'current_user': self.auth.user,
+                                    'login_url': self.auth.login_url(),
+                                    'logout_url': self.auth.logout_url(),
+                                    'current_url': self.request.url,
+                                  })
+        
+        self.context = self.template_vars
+        
+
+    def redirect_path(self, default='/'):
+        if '_continue' in self.session:
+            url = self.session.pop('_continue')
+        else:
+            url = self.request.args.get('continue', '/')
+
+        if not url.startswith('/'):
+            url = default
+
+        return url
+
+    def _on_auth_redirect(self):
+        """Redirects after successful authentication using third party services. """
+        if '_continue' in self.session:
+            url = self.session.pop('_continue')
+        else:
+            url = '/'
+
+        if not self.auth.user:
+            url = self.auth.signup_url()
+
+        return self.redirect(url)
+        
 
 def main():
     app.run()

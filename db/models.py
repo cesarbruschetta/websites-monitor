@@ -29,8 +29,8 @@ class Log(db.Model):
     site_monitor = db.ReferenceProperty(SiteMonitor, collection_name = 'site_log')
     date_creation = db.DateTimeProperty(auto_now_add=True)
     status = db.BooleanProperty()
-    time_access = db.IntegerProperty()
-    speed_access = db.IntegerProperty()
+    time_access = db.FloatProperty()
+    speed_access = db.FloatProperty()
     
     
     

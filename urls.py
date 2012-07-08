@@ -3,6 +3,11 @@
 from tipfy.routing import Rule
 
 rules = [
+    #Login User
+    Rule('/login', endpoint='auth/login', handler='handlers.GoogleAuthHandler'),
+    Rule('/logout', endpoint='auth/logout', handler='handlers.Logout'),         
+         
+         
     Rule('/', name='hello-world', handler='views.home.handlers.HomePageHandler'),
     # Gerencias Sites
     Rule('/sites', name='Gerenciar Sites', handler='views.manage.handlers.SiteMonitorHandler'),

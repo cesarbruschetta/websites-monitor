@@ -70,35 +70,39 @@ class CheckUPHandler(DefaultHandler):
             default_timer = time.clock
         else:
             default_timer = time.time
-    
-        start_run = default_timer()
+        
         if use_ssl:
             conn = httplib.HTTPSConnection(host)
         else:
             conn = httplib.HTTPConnection(host)
-            
         conn.request('GET', path)
-        resp = conn.getresponse()
-        data = copy(resp.read())
         
+        start_run = default_timer()
+        resp = conn.getresponse()
+        end_run = default_timer()
+        conn.close()     
+        
+        data = copy(resp.read())
         if textcheck in data.decode( 'utf-8', 'ignore') :
             D['status'] = True
         else:
             D['status'] = False
         
         size = len(data)
-        conn.close()     
-        end_run = default_timer()
         
         #dbg()
         
-        full_time = end_run - start_run
+        deltaTime = datetime.fromtimestamp(end_run) - datetime.fromtimestamp(start_run)
+        
+        #deltaTime = end_run - start_run
+        full_time = (deltaTime.microseconds * 10**-6) + deltaTime.seconds
+        
         #datetime.fromtimestamp(full_time)
-        datetime.fromtimestamp(time.time())
-        D['time_access'] = datetime.fromtimestamp(full_time).microsecond
+        #datetime.fromtimestamp(time.time())
+        D['time_access'] = full_time
 
-        # Kb/s
-        D['speed_access'] = int((size /1000.0)/full_time)
+        # KB/s
+        D['speed_access'] = (size/1024.0)/full_time
          
         
         return D
