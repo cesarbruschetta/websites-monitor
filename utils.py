@@ -20,14 +20,14 @@ class Resources():
     def getJsTags(self):
         tags = []
         for js in self.js:
-            tag = '<script type="text/javascript" src="/js/%s" ></script>' % js 
+            tag = '<script type="text/javascript" src="/static/js/%s" ></script>' % js 
             tags.append(tag)
         return tags
     
     def getCssTags(self):
         tags = []
         for css in self.css:
-            tag = '<link rel="stylesheet" type="text/css" href="/css/%s" ></link>' % css 
+            tag = '<link rel="stylesheet" type="text/css" href="/static/css/%s" ></link>' % css 
             tags.append(tag)
         return tags
     

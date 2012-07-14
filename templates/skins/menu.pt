@@ -3,6 +3,8 @@
 		<li><a href="/">Home</a></li>
 		<li><a href="/sites">Gerenciar Sites</a></li>
 		<li><a href="/history">Histórico / Graficos</a></li>
+		<li><a href="/logout">Sair</a></li>
+		
 		
 		<!--li><a href="/">About</a></li>
 		<li><a href="#">Links</a></li>

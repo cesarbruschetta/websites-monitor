@@ -41,5 +41,10 @@ handlers:
   script: main.py
   login: admin
 
+- url: /checkup
+  script: main.py
+
 - url: /.*
   script: main.py
+  login: required
+  secure: always

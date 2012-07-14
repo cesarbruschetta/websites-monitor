@@ -3,9 +3,10 @@ from tipfy.app import Response
 from main import DefaultHandler
 
 import httplib, time, sys
-from time import mktime
 from copy import copy
+from google.appengine.api import mail
 
+from config import send_mail,send_to
 from datetime import datetime
 
 #Importing the models
@@ -20,6 +21,15 @@ class CheckUPHandler(DefaultHandler):
         for site in sites:
             if site.flagAtivo:
                 result = self.checaSite(site.link, site.textCheck)
+                
+                lastStatus = Log.getLastLogSite(site.key())
+                nowStatus = result.get('status',False)
+                
+                if nowStatus != lastStatus.status:
+                    self.sendMail(site.name, result.get('status',False))
+                elif not nowStatus:
+                    self.sendMail(site.name, result.get('status',False))
+                    
                 log.append(result)
                 
                 save = Log(site_monitor = site.key(),
@@ -28,17 +38,8 @@ class CheckUPHandler(DefaultHandler):
                            time_access = result.get('time_access'),
                            speed_access = result.get('speed_access'))
                 save.put()
-        
-        
-        
-        
-        
+                
         return Response(log)
-        
-        
-        
-        
-
 
     def checaSite(self, url, textcheck):
         if url.startswith('https://'):
@@ -89,22 +90,38 @@ class CheckUPHandler(DefaultHandler):
             D['status'] = False
         
         size = len(data)
-        
-        #dbg()
-        
         deltaTime = datetime.fromtimestamp(end_run) - datetime.fromtimestamp(start_run)
         
-        #deltaTime = end_run - start_run
         full_time = (deltaTime.microseconds * 10**-6) + deltaTime.seconds
-        
-        #datetime.fromtimestamp(full_time)
-        #datetime.fromtimestamp(time.time())
         D['time_access'] = full_time
 
         # KB/s
         D['speed_access'] = (size/1024.0)/full_time
-         
         
         return D
+    
+    def sendMail(self,site,status):
+        if status:
+            lab_status = 'UP'
+        else:
+            lab_status = 'DOWN'
+        
+        
+        message = mail.EmailMessage()
+        message.sender = send_mail
+        message.to = send_to
+        message.subject = '** MONITORAMENTO ** Site %s is %s' %(site, lab_status)
+        message.body = """
+                    I've invited you to Example.com!
+        
+                    To accept this invitation, click the following link,
+                    or copy and paste the URL into your browser's address
+                    bar:
+                
+                    www.liberiunloja.com/activate_account?id=%s
+                    """ %str('testet')
+    
+        message.send()
+        
     
 

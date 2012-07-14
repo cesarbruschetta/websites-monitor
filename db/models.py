@@ -32,5 +32,11 @@ class Log(db.Model):
     time_access = db.FloatProperty()
     speed_access = db.FloatProperty()
     
-    
-    
+    @classmethod
+    def getLastLogSite(self, site):
+        result = Log.all().filter("site_monitor =", site)
+        return result[result.count()-1]
+
+
+        
+        
