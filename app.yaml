@@ -44,6 +44,9 @@ handlers:
 - url: /checkup
   script: main.py
 
+- url: /hello
+  script: main.py
+
 - url: /.*
   script: main.py
   login: required

@@ -2,10 +2,13 @@
 from tipfyext.jinja2 import Jinja2Mixin
 from main import DefaultHandler
 
-#class HelloWorldHandler(RequestHandler):
-#    def get(self):
-#        """Simply returns a Response object with an enigmatic salutation."""
-#        return Response('Hello, World!')
+from tipfy.app import Response
+from tipfy.handler import RequestHandler
+
+class HelloWorldHandler(RequestHandler):
+    def get(self):
+        """Simply returns a Response object with an enigmatic salutation."""
+        return Response('Hello, World!')
 
 class HomePageHandler(DefaultHandler, Jinja2Mixin):
     def get(self):

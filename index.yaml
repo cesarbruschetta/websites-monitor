@@ -12,5 +12,10 @@ indexes:
 
 - kind: Log
   properties:
+  - name: key
+  - name: date_creation
+
+- kind: Log
+  properties:
   - name: site_monitor
   - name: date_creation

@@ -11,15 +11,15 @@
 	{% for resource in resources.getJsTags() %} {{ resource|safe }} {% endfor %}
 	
 	<script type="text/javascript">
-		$j = jQuery.noConflict();
-		$j(document).ready(function () {    
+		//$j = jQuery.noConflict();
+		$(document).ready(function () {    
 			var url = window.location.pathname;
 			url = url.substr(url.indexOf("/"));
 			if (url.split('/').length > 2){
 				end = url.lastIndexOf('/');
 				url = url.substr(0, end);
 			}
-			$j("#mainMenu").find("a[href='" + url + "']").parent().addClass("current_page_item");
+			$("#mainMenu").find("a[href='" + url + "']").parent().addClass("current_page_item");
 		});
 
 	</script>

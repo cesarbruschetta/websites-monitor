@@ -38,5 +38,8 @@ class Log(db.Model):
         return result[result.count()-1]
 
 
-        
-        
+    @classmethod
+    def getLogGrafic(self,site,start_date,end_date):
+        site_ref = SiteMonitor.getByID(site)
+        result = Log.all().filter("site_monitor =",site_ref)
+        return result.filter("date_creation >=", start_date).filter("date_creation <=", end_date)
