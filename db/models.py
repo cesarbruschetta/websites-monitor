@@ -34,8 +34,21 @@ class Log(db.Model):
     
     @classmethod
     def getLastLogSite(self, site):
-        result = Log.all().filter("site_monitor =", site)
-        return result[result.count()-1]
+        #result = Log.all()
+        result = db.GqlQuery("SELECT * FROM Log WHERE site_monitor = :1 ORDER BY date_creation DESC LIMIT 1", site).get()
+        try:
+            return result.status
+        except:
+            return True
+        
+#        if result.count():
+#            result_site = result.filter("site_monitor =", site)
+#            if result_site.count():
+#                return result_site[result_site.count()-1].status
+#            else:
+#                return True
+#        else:
+#            return True
 
 
     @classmethod
@@ -43,3 +56,5 @@ class Log(db.Model):
         site_ref = SiteMonitor.getByID(site)
         result = Log.all().filter("site_monitor =",site_ref)
         return result.filter("date_creation >=", start_date).filter("date_creation <=", end_date)
+        return result
+

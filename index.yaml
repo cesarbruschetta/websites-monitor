@@ -19,3 +19,9 @@ indexes:
   properties:
   - name: site_monitor
   - name: date_creation
+
+- kind: Log
+  properties:
+  - name: site_monitor
+  - name: date_creation
+    direction: desc

@@ -25,7 +25,7 @@ class CheckUPHandler(DefaultHandler):
                 lastStatus = Log.getLastLogSite(site.key())
                 nowStatus = result.get('status',False)
                 
-                if nowStatus != lastStatus.status:
+                if nowStatus != lastStatus:
                     self.sendMail(site.name, result.get('status',False))
                 elif not nowStatus:
                     self.sendMail(site.name, result.get('status',False))
