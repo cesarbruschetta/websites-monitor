@@ -30,30 +30,62 @@ class GraphicAjaxHandler(DefaultHandler, Jinja2Mixin):
         
         if param.has_key('site') and\
            param.has_key('start_date') and param.has_key('end_date'):
-            #dbg()
+            
             site = param.get('site')
             start_date = param.get('start_date').split('/')
             end_date = param.get('end_date').split('/')
             
             result = Log.getLogGrafic(site,date(int(start_date[2]),int(start_date[1]),int(start_date[0])),
-                                           date(int(end_date[2]),int(end_date[1]),int(end_date[0]))
+                                           date(int(end_date[2]),int(end_date[1]),int(end_date[0])+1)
                                      )
-            
+                
             L_time_access = []
             L_speed_access = []
+            status_OK = 0
+            status_Failed = 0
             
-            cont = 0
             for item in result:
-                cont += 1
-                L_speed_access.append([cont,item.speed_access])
-                L_time_access.append([cont,item.time_access])
+                S = {}
+                T = {}
+                T['axisX'] = S['axisX'] = item.date_creation.strftime('%d-%m %H:%M')
+                
+                T['axisY'] = item.time_access
+                S['axisY'] = item.speed_access
+                
+                L_speed_access.append(S)
+                L_time_access.append(T)
+                
+                if item.status:
+                    status_OK += 1
+                else:
+                    status_Failed += 1 
             
-            
-            self.context['resultSite'] = [tuple(L_time_access),tuple(L_speed_access)]
-
-        
+            L_status = [{'axisX':'OK',
+                         'axisY':status_OK},
+                        {'axisX':'Down',
+                         'axisY':status_Failed}]
+                
+            self.context['resultSite'] = [{'id':'time_access',
+                                           'name':"Tempo de Acesso",
+                                           'nameX':"Periodo (dias)",
+                                           'nameY':'Tempo (seg)',
+                                           'type':'line',
+                                           'data':L_time_access},
+                                          {'id':'speed_access',
+                                           'name':'Velocidade de acesso',
+                                           'nameX':"Periodo (dias)",
+                                           'nameY':'Velocidade (KB/s)',
+                                           'type':'line',
+                                           'data':L_speed_access},
+                                          {'id':'status',
+                                           'name':'Historico de Status',
+                                           'nameX':"Status",
+                                           'nameY':'Quantidate',
+                                           'type':'bar',
+                                           'data':L_status}
+                                          ]
         
         else:
-            pass
+             self.context['resultSite'] = []
 
         return self.render_response('ajaxgraphic.html', **self.context)

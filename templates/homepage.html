@@ -3,31 +3,30 @@
 {% block content %}
 <h1>{{ message|e }}</h1>
 		<div class="post">
-			<h2 class="title">Praesent scelerisque scelerisque</h2>
-			<p>This is <strong>Networked</strong>, a free, fully standards-compliant CSS template by
-			 <a href="http://www.freecsstemplates.org">FCT</a>. The picture in this template is from <a href="http://fotogrph.com/">FotoGrph</a>.
-			  This free template is released under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attributions 3.0</a> 
-			  license, so you are pretty much free to do whatever you want with it (even use it commercially) provided you keep the links in the 
-			  footer intact. Aside from that, have fun with it :) </p>
+			<h2 class="title">O que é?</h2>
+			<p>O WebMonitor é uma ferramenta que monitora e analisa Sites altomaticamente, a cada 10 minutos, 24 horas por dia, 7 dias por semana.<br />
+				Seu website é o seu negócio desde que seus clientes consigam te encontrar.
+				Mesmo que seu site tenha uma estatística de 99% do tempo no ar, por mais de 7 horas por mês seus clientes não conseguem acessar seu site. 
+			 </p>
 		</div>
 		<div class="post">
-			<h2 class="title">Eget at eu aliquet eleifend</h2>
-			<p> <img src="/static/images/pics01.jpg" alt="" width="250" height="250" class="alignleft" />Placerat cras ultrices tristique. Parturient ut
-			 ultrices viverra fusce ultricies curae. Phasellus ultrices semper metus facilisis. Tristique quisque ante neque morbi. Luctus aenean
-			  risus etiam sodales lobortis lacinia. Hendrerit arcu interdum eu vivamus in nunc. Mollis tincidunt natoque libero posuere auctor quam
-			   aliquam. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Pellentesque tristique ante ut risus. Quisque dictum. Integer n
-			   isl risus, sagittis convallis, rutrum id, elementum congue, nibh. Suspendisse dictum porta lectus. Donec placerat odio vel elit. Null
-			   am ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem
-			    urna, consequat vel, suscipit in, mattis placerat, nulla. Sed ac leo. Pellentesque imperdiet. Donec placerat odio vel elit. Nullam 
-			    ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. </p>
-			<p>Placerat cras ultrices tristique. Parturient ut ultrices viverra fusce ultricies curae. Phasellus ultrices semper metus facilisis.
-
+			<h2 class="title">Descrição</h2>
+			<p> <img src="/static/images/pics01.jpg" alt="" width="250" height="250" class="alignleft" />
+				Monitore  seu site 24 horas, e receba relatórios de uptime por sms ou email.
+				Um dos fatores determinantes na hora de escolher um serviço de hospedagem, é o tempo que o servidor permanece no ar.
+			</p>
+			<p>Alguns serviços garantem um uptime de 99%, mais na hora não é nada disto.
+				Monitorando seu site ou blog, você vai ser o primeiro a ser informado do downtime, e poderá recolocar seu site no ar o mais rápido possível.
+			</p>	
+		</div>
+		<div class="post">
+			<div class="clear"></div>
 			<ul class="list">
-				<li class="first"><a href="#">Sapien malesuada dui fringilla dis phasellus iaculis</a></li>
-				<li><a href="#">Lacus iaculis varius ridiculus lacus fringilla amet ipsum</a></li>
-				<li><a href="#">Pharetra euismod eleifend morbi suspendisse placerat elementum urna</a></li>
-				<li><a href="#">Iaculis amet arcu sodales enim ipsum aenean</a></li>
-				<li class="last"><a href="#">Quis volutpat tempor varius lacinia egestas tincidunt diam</a></li>
+				<li class="first"><a href="http://www.google.com">Site de Ajuda Universal</a></li>
+				{% for item in sites %}
+					<li><a href="{{ item.link }}">Site Monitorado: {{ item.name }}</a></li>
+				{% endfor %}
+				<li class="last"><a href="/sites">Gerenciar Sites Monitorados</a></li>
 			</ul>
 		</div>
 {% endblock %}

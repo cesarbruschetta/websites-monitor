@@ -26,9 +26,9 @@ class CheckUPHandler(DefaultHandler):
                 nowStatus = result.get('status',False)
                 
                 if nowStatus != lastStatus:
-                    self.sendMail(site.name, result.get('status',False))
+                    self.sendMail(site.link, site.name, result.get('status',False))
                 elif not nowStatus:
-                    self.sendMail(site.name, result.get('status',False))
+                    self.sendMail(site.link, site.name, result.get('status',False))
                     
                 log.append(result)
                 
@@ -61,8 +61,6 @@ class CheckUPHandler(DefaultHandler):
             path = '/'
     
         return self.run(host, path, textcheck, use_ssl)
-
-
     
     def run(self, host, path, textcheck, use_ssl=False):
         D = {}
@@ -100,28 +98,33 @@ class CheckUPHandler(DefaultHandler):
         
         return D
     
-    def sendMail(self,site,status):
+    def sendMail(self,link,site,status):
         if status:
             lab_status = 'UP'
+            msg = """   ATENCAO - NORMALIZACAO DO SITE!!!
+            
+                        O problema ao acessar o site %s,
+                        na data %s, foi resolvido
+                        
+                        Desconsidere essa mensagem.
+    
+                        """ %(link,datetime.now().strftime('%d/%m/%Y %H:%M:%s'))
         else:
             lab_status = 'DOWN'
+            msg = """   ATENCAO - PROBLEMA NO SITE!!!
+            
+                        Hove problema a acessar o site %s,
+                        na data %s,
+                        
+                        Verifique o corrido o quando antes.
+    
+                        """ %(link,datetime.now().strftime('%d/%m/%Y %H:%M:%s'))
         
         
         message = mail.EmailMessage()
         message.sender = send_mail
         message.to = send_to
         message.subject = '** MONITORAMENTO ** Site %s is %s' %(site, lab_status)
-        message.body = """
-                    I've invited you to Example.com!
-        
-                    To accept this invitation, click the following link,
-                    or copy and paste the URL into your browser's address
-                    bar:
-                
-                    www.liberiunloja.com/activate_account?id=%s
-                    """ %str('testet')
-    
+        message.body = msg.decode( 'utf-8', 'ignore')
         message.send()
-        
     
-

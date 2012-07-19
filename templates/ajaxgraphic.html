@@ -1,24 +1,21 @@
-		
-		
-	<p>conteudo dos graficois</p>
-	
-	<div id="chartcontainer"></div>
+{% for item in resultSite%}
+	<div id="{{ item.get('id') }}_container"></div>
 	<script type="text/javascript">
-	var myData = new Array{{ resultSite[0] }};
-	var myChart = new JSChart('chartcontainer', 'line');
-	myChart.setDataArray(myData);
+	var DataGrafic = new Array(
+		{% for item in item.get('data') %}
+			["{{ item.get('axisX') }}",{{ item.get('axisY') }}],
+		{% endfor %}
+		['0',0]);
+	var myChart = new JSChart('{{ item.get("id") }}_container', '{{ item.get("type") }}');
+	myChart.setSize(900, 400);
+	myChart.setTitle('{{ item.get("name") }}');
+	myChart.setAxisNameX('{{ item.get("nameX") }}');
+	myChart.setAxisNameY('{{ item.get("nameY") }}');
+	myChart.setDataArray(DataGrafic);
 	myChart.draw();
-	</script>
-	
-	
-	<p>conteudo dos graficois</p>
-	
-	<div id="chartcontainer2"></div>
-	<script type="text/javascript">
-	var myData = new Array{{ resultSite[1] }};
-	var myChart = new JSChart('chartcontainer2', 'line');
-	myChart.setDataArray(myData);
-	myChart.draw();
-	</script>
-	<p>conteudo dos graficois</p>
-	<p>conteudo dos graficois</p>
+</script>
+<style type="text/css">
+	#{{ item.get('id') }}_container img{display: none;}
+</style>
+<br />
+{% endfor %}
