@@ -13,11 +13,13 @@ class HistoryGraphicHandler(DefaultHandler, Jinja2Mixin):
         
         self.context['resources'].css.append('start/jquery-ui-1.8.21.custom.css')
         for i in ['jscharts.js','ajax-grafic.js','jquery-ui-1.8.21.custom.min.js','jquery.ui.datepicker-pt-BR.js']:
+            
+            #for i in ['highcharts.js','modules/exporting.js','ajax-grafic.js','jquery-ui-1.8.21.custom.min.js','jquery.ui.datepicker-pt-BR.js']:
             self.context['resources'].js.append(i)
         
         self.context['sites'] = SiteMonitor.getAll()
         
-        startDate = date.today() - timedelta(days=30)
+        startDate = date.today() - timedelta(days=1)
         self.context['start_date'] = startDate.strftime('%d/%m/%Y') 
         self.context['end_date'] = date.today().strftime('%d/%m/%Y') 
        
