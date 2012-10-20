@@ -10,11 +10,15 @@ from main import dbg
 class HistoryGraphicHandler(DefaultHandler, Jinja2Mixin):
     def get(self):
         self.context['message'] = 'Historico / Graficos'
-        
         self.context['resources'].css.append('start/jquery-ui-1.8.21.custom.css')
-        for i in ['jscharts.js','ajax-grafic.js','jquery-ui-1.8.21.custom.min.js','jquery.ui.datepicker-pt-BR.js']:
+        for i in ['ajax-grafic.js','jquery-ui-1.8.21.custom.min.js','jquery.ui.datepicker-pt-BR.js']:
+            self.context['resources'].js.append(i)
             
-            #for i in ['highcharts.js','modules/exporting.js','ajax-grafic.js','jquery-ui-1.8.21.custom.min.js','jquery.ui.datepicker-pt-BR.js']:
+        #JSCharts
+        #self.context['resources'].css.append('jscharts.js')
+        
+        #Outro grafico
+        for i in ['highcharts.js','modules/exporting.js']:
             self.context['resources'].js.append(i)
         
         self.context['sites'] = SiteMonitor.getAll()
@@ -27,6 +31,31 @@ class HistoryGraphicHandler(DefaultHandler, Jinja2Mixin):
     
     
 class GraphicAjaxHandler(DefaultHandler, Jinja2Mixin):
+    
+    #quebrando tudo
+    def quebrador(self, lista, partes):
+        return list(lista[ parte*len(lista)/partes:(parte+1)*len(lista)/partes ] for parte in range(partes))
+    
+    def GeraMedia(self, lista):
+        tmp = self.quebrador(lista, 20)
+        
+        L = []
+        for item in tmp:
+            D = {}
+            D['axisX'] = item[0].get('axisX')
+            
+            soma = 0
+            cont = 0
+            for i in item:
+                cont += 1
+                soma += i.get('axisY',0)
+            
+            D['axisY'] = soma/cont
+             
+            L.append(D)
+        
+        return L 
+    
     def get(self): 
         param = self.request.args 
         
@@ -62,10 +91,17 @@ class GraphicAjaxHandler(DefaultHandler, Jinja2Mixin):
                 else:
                     status_Failed += 1 
             
+            
             L_status = [{'axisX':'OK',
                          'axisY':status_OK},
                         {'axisX':'Down',
                          'axisY':status_Failed}]
+            
+            if len(L_time_access) > 20:
+                L_time_access = self.GeraMedia(L_time_access)
+                
+            if len(L_speed_access) > 20:
+                L_speed_access = self.GeraMedia(L_speed_access)
                 
             self.context['resultSite'] = [{'id':'time_access',
                                            'name':"Tempo de Acesso",

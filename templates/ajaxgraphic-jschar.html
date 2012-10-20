@@ -1,0 +1,21 @@
+{% for item in resultSite%}
+	<div id="{{ item.get('id') }}_container"></div>
+	<script type="text/javascript">
+	var DataGrafic = new Array(
+		{% for item in item.get('data') %}
+			["{{ item.get('axisX') }}",{{ item.get('axisY') }}],
+		{% endfor %}
+		['0',0]);
+	var myChart = new JSChart('{{ item.get("id") }}_container', '{{ item.get("type") }}');
+	myChart.setSize(900, 400);
+	myChart.setTitle('{{ item.get("name") }}');
+	myChart.setAxisNameX('{{ item.get("nameX") }}');
+	myChart.setAxisNameY('{{ item.get("nameY") }}');
+	myChart.setDataArray(DataGrafic);
+	myChart.draw();
+</script>
+<style type="text/css">
+	#{{ item.get('id') }}_container img{display: none;}
+</style>
+<br />
+{% endfor %}

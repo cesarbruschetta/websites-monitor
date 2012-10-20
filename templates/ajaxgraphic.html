@@ -1,21 +1,41 @@
 {% for item in resultSite%}
-	<div id="{{ item.get('id') }}_container"></div>
 	<script type="text/javascript">
-	var DataGrafic = new Array(
-		{% for item in item.get('data') %}
-			["{{ item.get('axisX') }}",{{ item.get('axisY') }}],
-		{% endfor %}
-		['0',0]);
-	var myChart = new JSChart('{{ item.get("id") }}_container', '{{ item.get("type") }}');
-	myChart.setSize(900, 400);
-	myChart.setTitle('{{ item.get("name") }}');
-	myChart.setAxisNameX('{{ item.get("nameX") }}');
-	myChart.setAxisNameY('{{ item.get("nameY") }}');
-	myChart.setDataArray(DataGrafic);
-	myChart.draw();
-</script>
-<style type="text/css">
-	#{{ item.get('id') }}_container img{display: none;}
-</style>
-<br />
-{% endfor %}
+		$(function () {
+		    var chart;
+		    $(document).ready(function() {
+		        chart = new Highcharts.Chart({
+		            chart: {
+		                renderTo: '{{ item.get("id") }}_container',
+		                type: '{{ item.get("type") }}',
+		                marginRight: 100,
+		                marginBottom: 100
+		            },
+					title: {
+	                	text: '{{ item.get("name") }}',
+	                	x: -20 //center
+	            	},
+	            	xAxis: {title: {text: '{{ item.get("nameX") }}',margin: 10},
+		                	categories: [{% for item in item.get('data') %}    	
+		                					"{{ item.get('axisX') }}",
+		                				 {% endfor %}
+		                				]},
+					yAxis: {title: {text: '{{ item.get("nameY") }}'}},
+	            	tooltip: {formatter: function() {return this.x +' <br /> '+ this.y;}},
+	                legend: {layout: 'vertical',
+		                	 align: 'right',
+		                	 verticalAlign: 'top',
+		                	 x: -10,
+		                	 y: 100,
+		                	 borderWidth: 1},
+	            	series: [{name:'Dados',data: [{% for item in item.get('data') %}
+	                									{{ item.get('axisY') }},
+		            							  {% endfor %}
+	                							 ]
+	            			}] 	                	
+		        });
+		 	});        	
+		});
+	</script>
+	<div id="{{ item.get('id') }}_container" style="width: 900px; height: 400px; margin: 0 auto"></div>
+	<br />
+{% endfor %}	
