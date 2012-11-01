@@ -63,9 +63,9 @@ class CheckUPHandler(DefaultHandler):
         try:
             resposta = self.run(host, path, textcheck, use_ssl)
         except:
-            resposta = {'status':False,'time_access':0,'speed_access':0}
+            resposta = {'status':False,'time_access':0.0,'speed_access':0.0}
     
-        return 
+        return resposta
     
     def run(self, host, path, textcheck, use_ssl=False):
         D = {}
