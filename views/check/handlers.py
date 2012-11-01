@@ -60,7 +60,12 @@ class CheckUPHandler(DefaultHandler):
             host = location
             path = '/'
     
-        return self.run(host, path, textcheck, use_ssl)
+        try:
+            resposta = self.run(host, path, textcheck, use_ssl)
+        except:
+            resposta = {'status':False,'time_access':0,'speed_access':0}
+    
+        return 
     
     def run(self, host, path, textcheck, use_ssl=False):
         D = {}
