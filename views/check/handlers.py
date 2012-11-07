@@ -113,7 +113,7 @@ class CheckUPHandler(DefaultHandler):
                         
                         Desconsidere essa mensagem.
     
-                        """ %(link,datetime.now().strftime('%d/%m/%Y %H:%M:%s'))
+                        """ %(link,datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
         else:
             lab_status = 'DOWN'
             msg = """   ATENCAO - PROBLEMA NO SITE!!!
@@ -123,7 +123,7 @@ class CheckUPHandler(DefaultHandler):
                         
                         Verifique o corrido o quando antes.
     
-                        """ %(link,datetime.now().strftime('%d/%m/%Y %H:%M:%s'))
+                        """ %(link,datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
         
         
         message = mail.EmailMessage()
