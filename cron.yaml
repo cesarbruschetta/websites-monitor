@@ -1,4 +1,4 @@
 cron:
 - description: Checagem dos sites cadastrados
   url: /checkup
-  schedule: every 10 minutes synchronized
+  schedule: every 5 minutes synchronized
