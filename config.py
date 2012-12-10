@@ -8,6 +8,8 @@ send_to = 'cesarbruschetta@hotmail.com'
 
 config = {}
 
+timeout = 60
+
 config['tipfy.sessions'] = {
        'secret_key': '581a6ac0061a07fd9c01f79b16d8cebf',
    }

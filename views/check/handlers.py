@@ -76,9 +76,9 @@ class CheckUPHandler(DefaultHandler):
             default_timer = time.time
         
         if use_ssl:
-            conn = httplib.HTTPSConnection(host)
+            conn = httplib.HTTPSConnection(host,timeout=timeout)
         else:
-            conn = httplib.HTTPConnection(host)
+            conn = httplib.HTTPConnection(host,timeout=timeout)
         conn.request('GET', path)
         
         start_run = default_timer()
