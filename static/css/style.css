@@ -448,3 +448,10 @@ img.aligncenter {
 #sobre a{
     color:#737373;
 }
+
+#ajax-load{
+ 	float: left;
+	padding: 20px;
+	text-align: center;
+	width: 820px;
+}

@@ -5,7 +5,8 @@ function geraGrafico(){
 	var start_date = $('input#start-date').val();
 	var end_date = $('input#end-date').val();
 	
-	$('div#content-grafico').html("");		
+	$('div#content-grafico').html("");	
+	$('div#ajax-load').show();
 	
 	if (site != ''){ 
 		$.get(url,{site:site,
@@ -13,6 +14,7 @@ function geraGrafico(){
 				   end_date:end_date}, function(data){
 	
 			$('div#content-grafico').html(data);
+			$('div#ajax-load').hide();
 		});
 	};
 };

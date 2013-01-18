@@ -6,7 +6,7 @@ import httplib, time, sys
 from copy import copy
 from google.appengine.api import mail
 
-from config import send_mail,send_to
+from config import send_mail,send_to,timeout
 from datetime import datetime
 
 #Importing the models
@@ -59,7 +59,7 @@ class CheckUPHandler(DefaultHandler):
         else:
             host = location
             path = '/'
-    
+        
         try:
             resposta = self.run(host, path, textcheck, use_ssl)
         except:
