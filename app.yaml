@@ -47,6 +47,10 @@ handlers:
 - url: /hello
   script: main.py
 
+- url: /delete\-entry
+  script: main.py
+  login: admin
+
 - url: /.*
   script: main.py
   login: required
