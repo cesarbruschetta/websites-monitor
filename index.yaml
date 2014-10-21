@@ -25,3 +25,8 @@ indexes:
   - name: site_monitor
   - name: date_creation
     direction: desc
+
+- kind: SiteMonitor
+  properties:
+  - name: site_monitor
+  - name: date_creation

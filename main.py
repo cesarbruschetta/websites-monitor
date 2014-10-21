@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """WSGI app setup."""
-import os 
+import os
 import sys
 import logging
 
@@ -22,7 +22,7 @@ from tipfy.handler import RequestHandler
 from tipfyext.jinja2 import Jinja2Mixin, cached_property
 
 #Importing some utilities
-from utils import Resources 
+from utils import Resources
 from config import website_title
 
 def enable_appstats(app):
@@ -53,7 +53,7 @@ debug = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
 # Instantiate the application.
 app = App(rules=rules, config=config, debug=debug)
 enable_appstats(app)
-enable_jinja2_debugging()
+#enable_jinja2_debugging()
 
 
 class DefaultHandler(RequestHandler, Jinja2Mixin):
@@ -64,9 +64,9 @@ class DefaultHandler(RequestHandler, Jinja2Mixin):
     user_info = None
     template_vars = {}
     #middleware = [SessionMiddleware(), UserRequiredIfAuthenticatedMiddleware()]
-    
+
     def __init__(self, request, app=None):
-        
+
         super(DefaultHandler, self).__init__(request)
         self.resources = Resources()
         self.template_vars = {'resources':self.resources,

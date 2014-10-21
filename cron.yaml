@@ -1,4 +1,12 @@
 cron:
-#- description: Checagem dos sites cadastrados
-#  url: /checkup
-#  schedule: every 5 minutes synchronized
+- description: app viva
+  url: /hello
+  schedule: every 10 minutes synchronized
+
+- description: Checagem dos sites cadastrados
+  url: /checkup
+  schedule: every 10 minutes synchronized
+
+- description: Limpeza dos dados antigos
+  url: /delete\-entry
+  schedule: every 24 hours synchronized

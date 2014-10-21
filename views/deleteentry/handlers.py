@@ -4,19 +4,17 @@ from tipfy.handler import RequestHandler
 from google.appengine.ext import db
 
 from db.models import Log
+from datetime import datetime, timedelta
 
 class DeleteEntryHandler(RequestHandler):
     def get(self):
         """Simply returns a Response object with an enigmatic salutation."""
 
+        hoje = datetime.now()
+        start_date = hoje - timedelta(days=60)
+        result = db.GqlQuery("SELECT __key__ FROM SiteMonitor WHERE date_creation <= :1",start_date)
 
+        count = result.count()
+        db.delete(result)
 
-        query = Log.all(keys_only=True)
-        entries =query.fetch(100)
-        db.delete(entries)
-        # This could bulk delete 1000 entities a time
-
-
-
-        return Response('Deletado 100 Dados')
-
+        return Response('Limpesa do Banco realizada: itens removidos = %s' %(count))
