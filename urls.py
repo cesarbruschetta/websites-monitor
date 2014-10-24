@@ -23,7 +23,7 @@ rules = [
     Rule('/hello', name='teste', handler='views.home.handlers.HelloWorldHandler'),
 
     # Hello Word
-    Rule('/delete-entry', name='Delete Entry DB', handler='views.deleteentry.handlers.DeleteEntryHandler'),
+    Rule('/deleteentry', name='Delete Entry DB', handler='views.deleteentry.handlers.DeleteEntryHandler'),
 
 
 ]

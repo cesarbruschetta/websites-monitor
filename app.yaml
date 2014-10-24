@@ -47,7 +47,7 @@ handlers:
 - url: /hello
   script: main.py
 
-- url: /delete\-entry
+- url: /deleteentry
   script: main.py
 
 - url: /.*
