@@ -12,7 +12,7 @@ class DeleteEntryHandler(RequestHandler):
 
         hoje = datetime.now()
         start_date = hoje - timedelta(days=60)
-        result = db.GqlQuery("SELECT __key__ FROM SiteMonitor WHERE date_creation <= :1",start_date)
+        result = db.GqlQuery("SELECT __key__ FROM Log WHERE date_creation <= :1",start_date)
 
         count = result.count()
         db.delete(result)
